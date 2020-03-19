@@ -27,6 +27,10 @@
 		->validGoal=true 合法的终点标志置true
 		->plan()执行规划函数
 
+	-->plan()
+		->Node3D start和goal点创建3D地图
+		->Node2D 创建2D地图
+		
 
 
 

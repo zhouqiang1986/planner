@@ -30,6 +30,41 @@
 	-->plan()
 		->Node3D start和goal点创建3D地图
 		->Node2D 创建2D地图
+
+	-->hybridA*算法
+		->updateH(...)更新H值
+		->start点加入开放列表open
+		->nodes3D在对应索引iPred存放start点
+		->以下循环执行.......
+		->从open sets中找出代价最低的点,并记录迭代次数iterations
+		->判断状态，如果是close则剔除，执行上一步
+		->判断状态，是open则还没进行扩展
+			->首先标记为close状态,从open sets里剔除该点
+			->如果到达终点或满足迭代上限，则返回nodes3D节点
+			->非终点，满足dubin条件
+				->---------
+			->hybrid A*搜索，从6个方向搜索
+				->---------
+				
+
+	-->A*算法
+		->start.updateH(goal) 更新起点的H值
+		->start点加入开放列表open
+		->nodes2D在对应索引iPred存放start点
+		->以下循环执行.......
+		->从open sets中找出代价最低的点
+		->判断状态，如果是close则剔除，执行上一步
+		->判断状态，是open则还没进行扩展
+			->首先标记为close状态,再标记为discover()已搜索状态,从open sets里剔除该点
+			->如果到达终点，则返回G值
+			->非终点，从八个方向寻找
+				->createSuccessor依次查找8个近邻点
+					->继承当前点的g值
+					->x+=dx, y+=dy
+				->updateG:从起点到现在的移动代价，g += movementCost(*pred) 原g值再加上移动的代价
+				->movementCost:移动代价为 sqrt(deltax^2 + deltay^2)
+				->updateH:从现在到终点的移动代价，h = movementCost(goal)
+				
 		
 
 

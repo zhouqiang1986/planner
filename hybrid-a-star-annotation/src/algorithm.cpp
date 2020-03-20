@@ -11,7 +11,7 @@
  *      RVIZ可视化类(用于显示结果)
  * 返回：
  *      满足约束条件的节点（数据结构用指针表示）
- * 
+ *
  * @date 2019-11-20
  */
 
@@ -189,7 +189,7 @@ Node3D* Algorithm::hybridAStar(Node3D& start,
         // SEARCH WITH DUBINS SHOT//车子是在前进方向，优先考虑用Dubins去命中目标点
         if (Constants::dubinsShot && nPred->isInRange(goal) && nPred->getPrim() < 3) {
           nSucc = dubinsShot(*nPred, goal, configurationSpace);
-          
+
           //如果Dubins方法能直接命中，即不需要进入Hybrid A*搜索了，直接返回结果
           if (nSucc != nullptr && *nSucc == goal) {
             //DEBUG
@@ -457,7 +457,7 @@ void  updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsL
     //      DubinsPath dubinsPath;
     //      dubins_init(q0, q1, Constants::r, &dubinsPath);
     //      dubinsCost = dubins_path_length(&dubinsPath);
-    
+
     //这里改用open motion planning library的算法
     ompl::base::DubinsStateSpace dubinsPath(Constants::r);
     State* dbStart = (State*)dubinsPath.allocState();
@@ -469,7 +469,7 @@ void  updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsL
     dubinsCost = dubinsPath.distance(dbStart, dbEnd);
   }
 
-  // if reversing is active use a Reeds-Shepp 
+  // if reversing is active use a Reeds-Shepp
   //假如车子可以后退，则可以启动Reeds-Shepp 算法
   if (Constants::reverse && !Constants::dubins) {
     //    ros::Time t0 = ros::Time::now();
@@ -506,9 +506,9 @@ void  updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsL
 
   if (Constants::twoD) {
     // offset for same node in cell
-    twoDoffset = sqrt( ((start.getX() - (long)start.getX()) - (goal.getX() - (long)goal.getX())) * 
+    twoDoffset = sqrt( ((start.getX() - (long)start.getX()) - (goal.getX() - (long)goal.getX())) *
                        ((start.getX() - (long)start.getX()) - (goal.getX() - (long)goal.getX())) +
-                       ((start.getY() - (long)start.getY()) - (goal.getY() - (long)goal.getY())) * 
+                       ((start.getY() - (long)start.getY()) - (goal.getY() - (long)goal.getY())) *
                        ((start.getY() - (long)start.getY()) - (goal.getY() - (long)goal.getY()))
                       );
     twoDCost = nodes2D[(int)start.getY() * width + (int)start.getX()].getG() - twoDoffset;
@@ -569,7 +569,7 @@ Node3D* dubinsShot(Node3D& start, const Node3D& goal, CollisionDetection& config
       // delete all nodes
       delete [] dubinsNodes;
       return nullptr;
-    } 
+    }
   }
 
   //  std::cout << "Dubins shot connected, returning the path" << "\n";
